@@ -9,4 +9,11 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
+
+// Routes
+import healthCheckRoute from './routes/healthcheck.route.js'
+
+app.use('/api', healthCheckRoute)
+
+
 export default app;
