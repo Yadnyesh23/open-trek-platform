@@ -12,14 +12,15 @@ app.use(express.json())
 
 // Routes
 import healthCheckRoute from './routes/healthcheck.route.js'
-import getAllTreksRoute  from './routes/treks.routes.js'
-import getTrekByID  from './routes/treks.routes.js'
-import createTrek  from './routes/treks.routes.js'
+import getAllTreksRoute from './routes/treks.routes.js'
+import getTrekByIDRoute from './routes/treks.routes.js'
+import createTrekRoute from './routes/treks.routes.js'
+import getMyTreksRoute from './routes/treks.routes.js'
+import registerRoute from './routes/auth.route.js'
+import loginRoute from './routes/auth.route.js'
 
-app.use('/api', healthCheckRoute)
-app.use('/api', getAllTreksRoute)
-app.use('/api', getTrekByID)
-app.use('/api', createTrek)
+app.use('/api', healthCheckRoute, getAllTreksRoute, getTrekByIDRoute, createTrekRoute, getMyTreksRoute)
+app.use('/api', registerRoute, loginRoute)
 
 
 export default app;

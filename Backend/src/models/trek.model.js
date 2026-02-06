@@ -63,8 +63,8 @@ const trekSchema = new Schema(
     },
 
     createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: 'Leader',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       default: null,
     },
   },

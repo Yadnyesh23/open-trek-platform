@@ -2,6 +2,7 @@ import ApiError from '../utils/ApiError.js'
 import ApiResponse from '../utils/ApiResponse.js'
 import asyncHandler from '../utils/asyncHandler.js'
 import Trek from '../models/trek.model.js'
+import mongoose from 'mongoose'
 
 
 // @desc Get all treks
@@ -43,18 +44,23 @@ const getAllTreks = asyncHandler(async (req, res) => {
 // @method GET /api/treks
 //@access PUBLIC
 const getTrekByID = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params
 
-  const trek = await Trek.findById(id);
-
-  if (!trek) {
-    throw new ApiError(404, "Trek not found");
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(400, "Invalid trek ID")
   }
 
-  res
-    .status(200)
-    .json(new ApiResponse(200,  message="Trek fetched successfully", data=trek));
+  const trek = await Trek.findById(id)
+
+  if (!trek) {
+    throw new ApiError(404, "Trek not found")
+  }
+
+  res.status(200).json(
+    new ApiResponse(200, "Trek fetched successfully", trek)
+  )
 })
+
 
 
 // @desc Get all treks
@@ -79,10 +85,72 @@ const createTrek = asyncHandler(async (req, res) => {
     }
 
     const trek = await Trek.create({
-        trekName, location, date, month, duration, difficulty, price, leaderName, whatsapp, description, createdBy
+        trekName, location, date, month, duration, difficulty, price, leaderName, whatsapp, description, createdBy: req.user._id
     })
 
-    res.status(201).json(new ApiResponse(201, message="Trek created successfully.",data=trek))
+    res.status(201).json(new ApiResponse(201, "Trek created successfully.",trek))
 })
 
-export { getAllTreks, createTrek , getTrekByID}
+// @desc Get logged-in user's treks
+// @route GET /api/treks/my
+// @access PRIVATE
+const getMyTreks = asyncHandler(async (req, res) => {
+  const treks = await Trek.find({ createdBy: req.user._id })
+    .sort({ createdAt: -1 });
+
+  res.status(200).json(
+    new ApiResponse(200, "Your treks fetched successfully",treks)
+  );
+});
+
+// @desc Update trek (owner only)
+// @route PUT /api/treks/:id
+// @access PRIVATE
+const updateTrek = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const trek = await Trek.findById(id);
+
+  if (!trek) {
+    throw new ApiError(404, "Trek not found");
+  }
+
+  if (trek.createdBy.toString() !== req.user._id.toString()) {
+    throw new ApiError(403, "You are not allowed to update this trek");
+  }
+
+  const updatedTrek = await Trek.findByIdAndUpdate(
+    id,
+    req.body,
+    { new: true, runValidators: true }
+  );
+
+  res.status(200).json(
+    new ApiResponse(200, updatedTrek, "Trek updated successfully")
+  );
+});
+
+// @desc Delete trek (owner only)
+// @route DELETE /api/treks/:id
+// @access PRIVATE
+const deleteTrek = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const trek = await Trek.findById(id);
+
+  if (!trek) {
+    throw new ApiError(404, "Trek not found");
+  }
+
+  if (trek.createdBy.toString() !== req.user._id.toString()) {
+    throw new ApiError(403, "You are not allowed to delete this trek");
+  }
+
+  await trek.deleteOne();
+
+  res.status(200).json(
+    new ApiResponse(200, null, "Trek deleted successfully")
+  );
+});
+
+export { getAllTreks, createTrek , getTrekByID, getMyTreks , updateTrek, deleteTrek}
