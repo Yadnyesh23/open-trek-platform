@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../api/config';
+
 import {
   MapPin,
   Clock,
@@ -22,7 +24,7 @@ const TrekDetails = () => {
   useEffect(() => {
     const fetchTrekDetails = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/treks/${id}`);
+        const res = await axios.get(`API_BASE_URL/treks/${id}`);
         setTrek(res.data.data);
       } catch (err) {
         console.error(err);
