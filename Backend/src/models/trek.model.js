@@ -61,6 +61,10 @@ const trekSchema = new Schema(
     description: {
       type: String,
     },
+    images:[
+    {
+      type: String,
+    }],
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

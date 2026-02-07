@@ -3,6 +3,7 @@ import ApiResponse from '../utils/ApiResponse.js'
 import asyncHandler from '../utils/asyncHandler.js'
 import Trek from '../models/trek.model.js'
 import mongoose from 'mongoose'
+import cloudinary from "../config/cloudinary.js";
 
 
 // @desc Get all treks
@@ -40,8 +41,8 @@ const getAllTreks = asyncHandler(async (req, res) => {
 })
 
 
-// @desc Get all treks
-// @method GET /api/treks
+// @desc Get trek by id
+// @method GET /api/treks/:id
 //@access PUBLIC
 const getTrekByID = asyncHandler(async (req, res) => {
   const { id } = req.params
@@ -63,33 +64,58 @@ const getTrekByID = asyncHandler(async (req, res) => {
 
 
 
-// @desc Get all treks
+// @desc Trek leader can create trek
 // @method GET /api/treks
-//@access PUBLIC
+//@access PRIVATE
 const createTrek = asyncHandler(async (req, res) => {
+  const {
+    trekName,
+    location,
+    date,
+    month,
+    duration,
+    difficulty,
+    price,
+    leaderName,
+    whatsapp,
+    description,
+  } = req.body;
 
-    const { trekName, location, date, month, duration, difficulty, price, leaderName, whatsapp, description, createdBy } = req.body
+  if (!trekName || !location || !date || !month) {
+    throw new ApiError(400, "Required fields missing");
+  }
 
-    if (
-        !trekName ||
-        !location ||
-        !date ||
-        !month ||
-        !duration ||
-        !difficulty ||
-        !price ||
-        !leaderName ||
-        !whatsapp
-    ) {
-        throw new ApiError(400, "All required fields must be provided");
+  let imageUrls = [];
+
+  if (req.files && req.files.length > 0) {
+    for (const file of req.files) {
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: "open-trek-platform",
+      });
+      imageUrls.push(result.secure_url);
     }
+  }
 
-    const trek = await Trek.create({
-        trekName, location, date, month, duration, difficulty, price, leaderName, whatsapp, description, createdBy: req.user._id
-    })
+  const trek = await Trek.create({
+    trekName,
+    location,
+    date,
+    month,
+    duration,
+    difficulty,
+    price,
+    leaderName,
+    whatsapp,
+    description,
+    images: imageUrls,
+    createdBy: req.user._id,
+  });
 
-    res.status(201).json(new ApiResponse(201, "Trek created successfully.",trek))
-})
+  res
+    .status(201)
+    .json(new ApiResponse(201,  "Trek created with images",trek));
+});
+
 
 // @desc Get logged-in user's treks
 // @route GET /api/treks/my
