@@ -6,10 +6,25 @@ const app = express();
 
 
 //middlerwares
+const cors = require('cors');
+
+const allowedOrigins = [
+  'http://localhost:5173', // Local development
+  'http://localhost:3000', 
+  'https://open-trek-platform-4.onrender.com' // YOUR LIVE FRONTEND URL
+];
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://open-trek-platform-4.onrender.com' 
-    : 'http://localhost:5173', // or 3000
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS Policy Error: Origin not allowed'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json())
