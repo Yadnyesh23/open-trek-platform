@@ -48,7 +48,8 @@ const registerUser = asyncHandler(async (req, res) => {
 // @method POST
 // @access PUBLIC
 const loginUser = asyncHandler(async (req, res) => {
-    const {email, password} = req.body
+    const {email, password} = req.body;
+    console.log("1. Login Attempt for:", email);
 
     if(!email || !password){
         throw new ApiError(400, "All Fields are required.")
@@ -56,15 +57,19 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const user = await User.findOne({email})
     if(!user){
+        console.log("2. User not found in DB");
         throw new ApiError(401, "Invalid credentials")
     }
     
     const isMatch = await user.isPasswordCorrect(password)
+    console.log("3. Plain password from request:", password);
+    console.log("4. Hashed password from DB:", user.password);
+    console.log("5. Comparison Result:", isMatch);
     if(!isMatch){
         throw new ApiError(401, "Invalid credentials")
     }
 
-    const token = await generateToken(user._id)
+    const token = generateToken(user._id)
     res.status(200).json(new ApiResponse(200, "Login successful.",  {
         user: {
           id: user._id,

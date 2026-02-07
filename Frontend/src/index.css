@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  /* Earthy Palette */
+  --color-forest: #2d4739;      /* Dark moss for headings */
+  --color-moss: #5d7a5c;        /* Muted green for accents */
+  --color-earth: #b38b6d;       /* Sand/Dirt brown for secondary details */
+  --color-stone: #f4f2ef;       /* Very light grey-brown for backgrounds */
+  --color-clay: #7d5a44;        /* Darker brown for text */
+  --color-night-forest: #1a241f; /* Darker background */
+  --color-night-card: #232d27;   /* Card background for dark mode */
+  --color-night-stone: #2d3831;   /* Borders for dark mode */
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-stone text-forest antialiased;
+  }
+  
+  h1, h2, h3 {
+    @apply font-semibold tracking-tight text-forest;
+  }
+}
+
+@variant dark (&:where(.dark, .dark *));
