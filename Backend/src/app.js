@@ -6,7 +6,6 @@ const app = express();
 
 
 //middlerwares
-const cors = require('cors');
 
 const allowedOrigins = [
   'http://localhost:5173', // Local development
