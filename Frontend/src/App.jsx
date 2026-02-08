@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import CreateTrek from './pages/CreateTrek';
 import EditTrek from './pages/EditTrek';
+import About from './pages/About';
 import Navbar from './components/Navbar';
 // We will create these pages next
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/create-trek" element={<CreateTrek />} />
               <Route path="/edit-trek/:id" element={<EditTrek />} />
+              <Route path="/about" element={<About />} />
             </Routes>
           </main>
         </div>
