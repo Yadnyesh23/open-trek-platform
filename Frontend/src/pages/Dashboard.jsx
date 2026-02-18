@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Plus, LayoutGrid, LogOut, Loader2, Mountain } from 'lucide-react';
 import TrekCard from '../components/TrekCard';
+import API_BASE_URL from '../api/config';
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const Dashboard = () => {
     const fetchMyTreks = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5001/api/treks/my', {
+        const res = await axios.get(`${API_BASE_URL}/treks/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTreks(res.data.data || []);
