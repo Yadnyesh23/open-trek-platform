@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../api/authService';
-import { Mail, Lock, ArrowRight, Mountain } from 'lucide-react';
+// Added Eye and EyeOff icons
+import { Mail, Lock, ArrowRight, Mountain, Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State to toggle visibility
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,7 +16,6 @@ const Login = () => {
 
     try {
       const response = await authService.login(formData);
-
       const data = response.data?.data || response.data || response;
       const token = data?.token || data?.data?.token;
       const user = data?.user || data?.data?.user;
@@ -33,14 +34,12 @@ const Login = () => {
 
   return (
     <div className="h-screen bg-[#0a0c0a] flex items-center justify-center px-4 overflow-hidden relative">
-
       {/* Ambient glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-72 h-72 bg-moss/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="relative w-full max-w-[380px] animate-in fade-in zoom-in duration-500">
-
         {/* Header */}
         <header className="text-center mb-8 space-y-2">
           <Mountain className="mx-auto text-moss" size={22} />
@@ -54,7 +53,6 @@ const Login = () => {
 
         {/* Card */}
         <div className="bg-[#141614] rounded-[2.2rem] border border-white/5 shadow-2xl p-7">
-
           {error && (
             <div className="mb-5 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-[10px] font-bold text-red-200 text-center">
               {error}
@@ -62,7 +60,6 @@ const Login = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-
             {/* Email */}
             <div className="space-y-1.5">
               <label className="text-[8px] font-black uppercase tracking-[0.18em] text-moss ml-1">
@@ -90,14 +87,22 @@ const Login = () => {
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-3.5 text-white/20 group-focus-within:text-moss transition" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"} // Dynamic type
                   required
                   placeholder="••••••••"
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-white placeholder:text-white/10 outline-none focus:border-moss/40 transition"
+                  className="w-full pl-11 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-white placeholder:text-white/10 outline-none focus:border-moss/40 transition"
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
                 />
+                {/* Visibility Toggle Button */}
+                <button
+                  type="button" // Important: prevents form submission
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-moss transition-colors"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
             </div>
 
@@ -126,7 +131,6 @@ const Login = () => {
               </Link>
             </p>
           </footer>
-
         </div>
       </div>
     </div>
