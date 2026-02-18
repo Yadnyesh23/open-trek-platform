@@ -33,7 +33,7 @@ const TrekListing = () => {
         </h1>
 
         <p className="text-earth/60 dark:text-white/50 font-medium max-w-xl mx-auto leading-relaxed">
-          Browse vetted trails led by experienced local guides across the Himalayas and beyond.
+          Browse vetted trails led by experienced local guides across the Sahyadri and beyond.
         </p>
       </div>
     </section>

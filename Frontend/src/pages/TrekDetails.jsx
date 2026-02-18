@@ -24,7 +24,7 @@ const TrekDetails = () => {
   useEffect(() => {
     const fetchTrekDetails = async () => {
       try {
-        const res = await axios.get(`API_BASE_URL/treks/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/treks/${id}`);
         setTrek(res.data.data);
       } catch (err) {
         console.error(err);
