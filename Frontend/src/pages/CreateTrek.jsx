@@ -6,6 +6,7 @@ import {
   Image as ImageIcon,
   Loader2
 } from 'lucide-react';
+import API_BASE_URL from '../api/config';
 
 const CreateTrek = () => {
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ const CreateTrek = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5001/api/treks', data, {
+      await axios.post(`${API_BASE_URL}treks`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
