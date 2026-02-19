@@ -7,6 +7,7 @@ import {
   Loader2,
   ChevronLeft
 } from 'lucide-react';
+import API_BASE_URL from '../api/config';
 
 const EditTrek = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ const EditTrek = () => {
   useEffect(() => {
     const fetchTrek = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5001/api/treks/${id}`);
+        const { data } = await axios.get(`${API_BASE_URL}/treks/${id}`);
         const trek = data.data;
 
         setFormData({
@@ -68,7 +69,7 @@ const EditTrek = () => {
       }
 
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5001/api/treks/${id}`, payload, {
+      await axios.put(`${API_BASE_URL}/treks/${id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

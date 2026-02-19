@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, IndianRupee, MessageCircle, Calendar, Trash2, Edit3, ArrowUpRight } from 'lucide-react';
 import axios from 'axios';
+import API_BASE_URL from '../api/config';
 
 const TrekCard = ({ trek, isPublic = false, onTrekDeleted }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const TrekCard = ({ trek, isPublic = false, onTrekDeleted }) => {
     if (window.confirm("Remove this expedition?")) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5001/api/treks/${trek._id}`, {
+        await axios.delete(`${API_BASE_URL}/treks/${trek._id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (onTrekDeleted) onTrekDeleted(trek._id);

@@ -38,7 +38,7 @@ const CreateTrek = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`${API_BASE_URL}treks`, data, {
+      await axios.post(`${API_BASE_URL}/treks`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
