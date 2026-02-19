@@ -1,38 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Plus, LayoutGrid, LogOut, Loader2, Mountain } from 'lucide-react';
 import TrekCard from '../components/TrekCard';
 import API_BASE_URL from '../api/config';
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [treks, setTreks] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const user = JSON.parse(localStorage.getItem('user'));
 
+  /* ---------------- Fetch Treks ---------------- */
+  const fetchMyTreks = useCallback(async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem('token');
+
+      const res = await axios.get(`${API_BASE_URL}/treks/my`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setTreks(res.data.data || []);
+    } catch (err) {
+      console.error("Dashboard fetch error:", err.response?.data || err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  /* ---------------- Refresh when returning from Edit ---------------- */
+  useEffect(() => {
+    fetchMyTreks();
+  }, [location.state, fetchMyTreks]);
+
+  /* ---------------- Trek Deleted ---------------- */
   const handleTrekDeleted = (deletedId) => {
     setTreks((prev) => prev.filter((t) => t._id !== deletedId));
   };
 
-  useEffect(() => {
-    const fetchMyTreks = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const res = await axios.get(`${API_BASE_URL}/treks/my`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setTreks(res.data.data || []);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMyTreks();
-  }, []);
-
+  /* ---------------- Logout ---------------- */
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
