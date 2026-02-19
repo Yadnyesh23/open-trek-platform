@@ -157,7 +157,7 @@ const EditTrek = () => {
                     value={formData.trekName}
                     onChange={handleChange}
                     required
-                    className="input"
+                    className="input placeholder-white/40"
                   />
                 </div>
 
@@ -168,7 +168,7 @@ const EditTrek = () => {
                     value={formData.location}
                     onChange={handleChange}
                     required
-                    className="input"
+                    className="input placeholder-white/40"
                   />
                 </div>
               </div>
@@ -283,6 +283,44 @@ const EditTrek = () => {
           </button>
         </form>
       </div>
+      <style jsx>{`
+  .label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border-radius: 1.25rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .input:focus {
+    border-color: rgba(122, 255, 155, 0.6);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 0 20px rgba(122, 255, 155, 0.05);
+  }
+
+  select.input {
+    cursor: pointer;
+  }
+
+  textarea.input {
+    resize: none;
+  }
+`}</style>
+
     </div>
   );
 };

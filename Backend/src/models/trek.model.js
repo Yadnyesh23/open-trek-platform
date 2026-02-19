@@ -61,10 +61,10 @@ const trekSchema = new Schema(
     description: {
       type: String,
     },
-    images:[
-    {
-      type: String,
-    }],
+    images: [
+      {
+        type: String,
+      }],
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -74,6 +74,20 @@ const trekSchema = new Schema(
   },
   { timestamps: true }
 )
+
+// Fix #2: Add indexes so queries don't do full collection scans
+// Filter indexes (equality queries)
+trekSchema.index({ month: 1 });
+trekSchema.index({ difficulty: 1 });
+trekSchema.index({ createdBy: 1 });    // For getMyTreks — huge win per user
+trekSchema.index({ createdAt: -1 });   // For default sort
+
+// Fix #3: Text index on trekName for fast, indexed full-text search
+// Replaces the unindexed $regex approach
+trekSchema.index({ trekName: 'text', location: 'text' });
+
+// Compound index for the most common filtered + sorted query
+trekSchema.index({ month: 1, difficulty: 1, createdAt: -1 });
 
 const Trek = mongoose.model('Trek', trekSchema)
 

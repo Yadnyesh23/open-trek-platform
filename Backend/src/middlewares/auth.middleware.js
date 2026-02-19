@@ -1,8 +1,12 @@
 import jwt from "jsonwebtoken";
 import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { User } from "../models/users.model.js";
 
+// Fix #5: Auth middleware now reads user data from the JWT payload instead of
+// querying the database on every single protected request. This eliminates
+// one DB round-trip per request for all authenticated endpoints.
+// NOTE: If you need fresh DB data (e.g., checking if user is banned), 
+// add an explicit DB call in the specific route that needs it.
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -19,13 +23,12 @@ const protect = asyncHandler(async (req, res, next) => {
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-  const user = await User.findById(decoded.id).select("-password");
+  // Attach user info from JWT payload — no DB query needed
+  req.user = {
+    _id: decoded.id,
+    role: decoded.role,
+  };
 
-  if (!user) {
-    throw new ApiError(401, "User no longer exists");
-  }
-
-  req.user = user; 
   next();
 });
 

@@ -4,10 +4,11 @@ import asyncHandler from '../utils/asyncHandler.js'
 import { User } from '../models/users.model.js'
 import jwt from "jsonwebtoken";
 
-const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
+const generateToken = (userId, role) => {
+    // Fix #5: Store role in JWT payload so auth middleware doesn't need a DB lookup
+    return jwt.sign({ id: userId, role }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN,
+    });
 };
 
 // @desc Registeration
@@ -48,37 +49,34 @@ const registerUser = asyncHandler(async (req, res) => {
 // @method POST
 // @access PUBLIC
 const loginUser = asyncHandler(async (req, res) => {
-    const {email, password} = req.body;
-    console.log("1. Login Attempt for:", email);
+    const { email, password } = req.body;
 
-    if(!email || !password){
+    if (!email || !password) {
         throw new ApiError(400, "All Fields are required.")
     }
 
-    const user = await User.findOne({email})
-    if(!user){
-        console.log("2. User not found in DB");
-        throw new ApiError(401, "Invalid credentials")
-    }
-    
-    const isMatch = await user.isPasswordCorrect(password)
-    console.log("3. Plain password from request:", password);
-    console.log("4. Hashed password from DB:", user.password);
-    console.log("5. Comparison Result:", isMatch);
-    if(!isMatch){
+    const user = await User.findOne({ email })
+    if (!user) {
         throw new ApiError(401, "Invalid credentials")
     }
 
-    const token = generateToken(user._id)
-    res.status(200).json(new ApiResponse(200, "Login successful.",  {
+    // Fix #9: Removed all debug console.log statements that were leaking plain-text passwords
+    const isMatch = await user.isPasswordCorrect(password)
+    if (!isMatch) {
+        throw new ApiError(401, "Invalid credentials")
+    }
+
+    // Fix #5: Pass role into token so auth middleware avoids DB lookup per request
+    const token = generateToken(user._id, user.role)
+    res.status(200).json(new ApiResponse(200, "Login successful.", {
         user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
         },
         token,
-      },))
+    },))
 })
 
 export { registerUser, loginUser }

@@ -26,7 +26,6 @@ const TrekCard = ({ trek, isPublic = false, onTrekDeleted }) => {
   return (
     <div className="group relative bg-white dark:bg-[#1a1d1a] rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/5 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:-translate-y-2 flex flex-col h-full">
       
-      {/* Delete Action (Dashboard Only) */}
       {!isPublic && (
         <button 
           onClick={handleDelete}

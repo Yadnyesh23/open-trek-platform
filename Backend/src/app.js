@@ -5,7 +5,7 @@ import cors from 'cors'
 const app = express();
 
 
-//middlerwares
+//middlewares
 
 const allowedOrigins = [
   'http://localhost:5173', // Local development
@@ -26,21 +26,20 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(express.json())
+
+// Fix #7: Removed duplicate express.json() — only keep the one with the size limit
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
+// Fix #8: Consolidated all trek routes into one import
 import healthCheckRoute from './routes/healthcheck.route.js'
-import getAllTreksRoute from './routes/treks.routes.js'
-import getTrekByIDRoute from './routes/treks.routes.js'
-import createTrekRoute from './routes/treks.routes.js'
-import getMyTreksRoute from './routes/treks.routes.js'
-import registerRoute from './routes/auth.route.js'
-import loginRoute from './routes/auth.route.js'
+import treksRoute from './routes/treks.routes.js'
+import authRoute from './routes/auth.route.js'
 
-app.use('/api', healthCheckRoute, getAllTreksRoute, getTrekByIDRoute, createTrekRoute, getMyTreksRoute)
-app.use('/api', registerRoute, loginRoute)
+app.use('/api', healthCheckRoute)
+app.use('/api', treksRoute)
+app.use('/api', authRoute)
 
 
 export default app;
