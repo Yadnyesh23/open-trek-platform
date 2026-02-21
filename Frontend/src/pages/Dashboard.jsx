@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { Plus, LayoutGrid, LogOut, Loader2, Mountain } from 'lucide-react';
+import { Plus, LayoutGrid, LogOut, Loader2, Mountain , Home } from 'lucide-react';
 import TrekCard from '../components/TrekCard';
 import API_BASE_URL from '../api/config';
 
@@ -71,6 +71,13 @@ const Dashboard = () => {
             </div>
 
             <div className="flex gap-3 items-start">
+            <button
+                onClick={() => navigate('/')}
+                className="p-4 rounded-2xl border border-white/10 text-white/60 hover:bg-white hover:text-[#0a0c0a] transition-all active:scale-95 shadow-xl group"
+                title="Back to Home"
+              >
+                <Home size={18} className="group-hover:scale-110 transition-transform" />
+              </button>
               <button
                 onClick={() => navigate('/create-trek')}
                 className="flex items-center gap-2 px-6 py-4 rounded-2xl bg-white text-[#0a0c0a] font-black uppercase tracking-[0.2em] text-[10px] hover:bg-moss transition-all active:scale-95 shadow-xl"
