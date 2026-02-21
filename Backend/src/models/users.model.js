@@ -38,6 +38,17 @@ userSchema.pre("save", async function (next) {
 
 });
 
+userSchema.methods.generateToken = function () {
+  return jwt.sign(
+    { 
+      id: this._id, 
+      role: this.role 
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+  );
+};
+
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
