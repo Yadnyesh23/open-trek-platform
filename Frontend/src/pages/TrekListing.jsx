@@ -64,32 +64,30 @@ const TrekListing = () => {
             {/* Filters */}
             <div className="flex gap-3">
               <select
-                className="w-full md:w-40 appearance-none py-3.5 px-4 bg-[#f5f5f5] dark:bg-white/5 rounded-2xl border border-transparent focus:border-moss/30 text-[10px] font-black uppercase tracking-widest cursor-pointer"
+                className="w-full md:w-40 appearance-none py-3.5 px-4 bg-[#f5f5f5] dark:bg-white/5 rounded-2xl border border-transparent focus:border-moss/30 text-[10px] font-black text-black dark:text-[#f5f5f5] uppercase tracking-widest cursor-pointer"
                 onChange={(e) =>
                   setFilters((prev) => ({ ...prev, month: e.target.value }))
                 }
               >
-                <option value="">All Months</option>
+                <option value="" >All Months</option>
                 {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => (
-                  <option key={m} value={m}>{m}</option>
+                  <option key={m} value={m} className="bg-[#1f1f1f] text-[#f5f5f5]">{m}</option>
                 ))}
               </select>
 
               <select
-                className="w-full md:w-40 appearance-none py-3.5 px-4 bg-[#f5f5f5] dark:bg-white/5 rounded-2xl border border-transparent focus:border-moss/30 text-[10px] font-black uppercase tracking-widest cursor-pointer"
+                className="w-full md:w-40 appearance-none py-3.5 px-4 bg-[#f5f5f5] dark:bg-white/5 rounded-2xl border border-transparent focus:border-moss/30 text-[10px] font-black text-black dark:text-[#f5f5f5] uppercase tracking-widest cursor-pointer"
                 onChange={(e) =>
                   setFilters((prev) => ({ ...prev, difficulty: e.target.value }))
                 }
               >
-                <option value="">Difficulty</option>
-                <option value="Easy">Easy</option>
-                <option value="Moderate">Moderate</option>
-                <option value="Hard">Hard</option>
+                <option value="" className="bg-[#1f1f1f] text-[#f5f5f5]">Difficulty</option>
+                <option value="Easy" className="bg-[#1f1f1f] text-[#f5f5f5]">Easy</option>
+                <option value="Moderate" className="bg-[#1f1f1f] text-[#f5f5f5]">Moderate</option>
+                <option value="Hard" className="bg-[#1f1f1f] text-[#f5f5f5]">Hard</option>
               </select>
 
-              <div className="hidden md:flex items-center justify-center px-4 bg-moss rounded-2xl">
-                <SlidersHorizontal size={18} />
-              </div>
+              
             </div>
 
           </div>
