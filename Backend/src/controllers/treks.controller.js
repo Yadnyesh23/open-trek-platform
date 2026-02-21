@@ -128,7 +128,7 @@ const createTrek = asyncHandler(async (req, res) => {
 // Fix #4: Added pagination — unbounded queries crash under load if a user has many treks
 const getMyTreks = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
-
+  console.log("User:", req.user);
   const skip = (Number(page) - 1) * Number(limit);
 
   const [treks, total] = await Promise.all([

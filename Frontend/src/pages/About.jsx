@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Added this
+import { useNavigate } from 'react-router-dom'; 
 import profileImg from '../assets/YadnyeshPfp.png';
 import {
     Mountain,
@@ -13,12 +13,12 @@ import {
 } from 'lucide-react';
 
 const About = () => {
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate(); 
 
     return (
         <div className="min-h-screen bg-[#0a0c0a] text-white pt-32 pb-24 px-6 relative">
             
-            {/* Back Button - Fixed to top left */}
+            
             <button 
                 onClick={() => navigate('/')} 
                 className="fixed top-28 left-6 z-40 flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-widest text-white/50 hover:text-moss hover:border-moss/50 transition-all group"
@@ -29,7 +29,7 @@ const About = () => {
 
             <div className="max-w-6xl mx-auto space-y-24">
 
-                {/* Section 1: The Vision */}
+              
                 <section className="text-center space-y-6">
                     <div className="inline-block px-4 py-1.5 rounded-full bg-moss/10 border border-moss/20 text-moss text-[10px] font-black uppercase tracking-widest mb-4">
                         Our Manifesto
@@ -43,7 +43,7 @@ const About = () => {
                     </p>
                 </section>
 
-                {/* Section 2: Problem & Solution Grid */}
+                
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="bg-[#141614] border border-white/5 p-10 rounded-[3rem] relative overflow-hidden group hover:border-moss/30 transition-all">
                         <Target className="text-moss mb-6" size={40} />
@@ -62,12 +62,12 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Section 3: Developer Spotlight */}
+                
                 <section className="relative bg-white text-[#0a0c0a] rounded-[4rem] p-10 md:p-20 overflow-hidden">
                     <Mountain className="absolute -bottom-20 -right-20 w-96 h-96 text-black/[0.03]" />
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
-                        {/* Developer Image - Original Colors restored */}
+                        
                         <div className="w-48 h-48 md:w-64 md:h-64 rounded-[3rem] bg-[#0a0c0a] flex items-center justify-center shrink-0 overflow-hidden border-8 border-black/5 shadow-2xl">
                             <img
                                 src={profileImg}
@@ -86,7 +86,7 @@ const About = () => {
                                 I am a developer driven by building scalable solutions for real-world challenges, creating this platform to bridge my technical expertise with my passion for trekking and the outdoors.
                             </p>
 
-                            {/* Social Links */}
+                        
                             <div className="flex flex-wrap justify-center md:justify-start gap-4">
                                 <SocialLink href="https://yadnyeshhalde.vercel.app" icon={<Globe size={18} />} label="Portfolio" />
                                 <SocialLink href="https://github.com/yadnyesh23" icon={<Github size={18} />} label="GitHub" />

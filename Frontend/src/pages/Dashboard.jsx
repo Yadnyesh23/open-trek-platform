@@ -25,7 +25,7 @@ const Dashboard = () => {
       });
       
 
-      setTreks(res.data.data || []);
+      setTreks(res.data.data.treks || []);
     } catch (err) {
       console.error("Dashboard fetch error:", err.response?.data || err.message);
     } finally {
