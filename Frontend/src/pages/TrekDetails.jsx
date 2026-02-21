@@ -85,9 +85,9 @@ const TrekDetails = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
-          {/* LEFT COLUMN */}
+          
           <div className="lg:col-span-8 space-y-10">
-            {/* Gallery */}
+            
             <section className="space-y-5">
               <div className="aspect-[16/8] rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl">
                 <img
@@ -111,7 +111,7 @@ const TrekDetails = () => {
               </div>
             </section>
 
-            {/* Description */}
+            
             <section className="relative bg-[#141614] rounded-[3rem] p-10 border border-white/5 overflow-hidden">
               <Mountain className="absolute -bottom-12 -right-12 w-56 h-56 text-white/[0.02]" />
               <div className="relative z-10 space-y-6">
@@ -159,11 +159,6 @@ const TrekDetails = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <button className="w-full py-4 rounded-2xl bg-[#0a0c0a] text-white font-black uppercase tracking-[0.2em] text-[10px] hover:bg-moss hover:text-[#0a0c0a] transition shadow-lg active:scale-95">
-                    Join Expedition
-                  </button>
-                  
-                  {/* WHATSAPP ENQUIRY BUTTON */}
                   <button 
                     onClick={handleWhatsAppEnquiry}
                     className="w-full py-4 rounded-2xl bg-white border-2 border-[#0a0c0a] text-[#0a0c0a] font-black uppercase tracking-[0.2em] text-[10px] hover:bg-green-50 transition flex items-center justify-center gap-2 active:scale-95"
