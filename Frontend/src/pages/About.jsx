@@ -38,8 +38,7 @@ const About = () => {
                         We Build Trails, <br /> Not Just Apps.
                     </h1>
                     <p className="max-w-2xl mx-auto text-white/50 text-lg font-medium leading-relaxed">
-                        Open Trek Platform is a specialized ecosystem designed for the modern adventurer.
-                        We bridge the gap between raw nature and digital convenience.
+                        Open Trek Platform is a specialized ecosystem built for the modern adventurer. We synchronize the spirit of exploration by seamlessly connecting bold trekkers with world-class trekking groups
                     </p>
                 </section>
 
@@ -57,8 +56,7 @@ const About = () => {
                         <Zap className="text-moss mb-6" size={40} />
                         <h3 className="text-2xl font-black mb-4">The Solution</h3>
                         <p className="text-white/40 leading-relaxed uppercase text-xs font-bold tracking-wider">
-                            Our platform centralizes trail intelligence. We provide a high-performance UI to explore, manage, and join treks with ease. One source of truth for every peak, every path, and every tribe leader.
-                        </p>
+We’ve engineered a specialized ecosystem that centralizes the trekking experience. Through a seamless UI, adventurers can browse, compare, and join treks based on precise timeframes and budgetary requirements. From trail data to leader profiles, we provide one definitive source for the modern trekking community                        </p>
                     </div>
                 </section>
 
