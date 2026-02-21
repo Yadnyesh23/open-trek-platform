@@ -10,7 +10,7 @@ router.get("/treks/my", protect, getMyTreks);
 router.get('/treks', getAllTreks)
 router.get('/treks/:id', getTrekByID)
 router.post('/treks', protect,upload.array("images", 5),createTrek)
-router.put("/treks/:id", protect, updateTrek);
+router.put("/treks/:id", protect,upload.array("images", 5), updateTrek);
 router.delete("/treks/:id", protect, deleteTrek);
 
 
