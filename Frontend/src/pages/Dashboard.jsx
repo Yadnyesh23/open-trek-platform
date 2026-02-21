@@ -23,6 +23,7 @@ const Dashboard = () => {
       const res = await axios.get(`${API_BASE_URL}/treks/my`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
 
       setTreks(res.data.data || []);
     } catch (err) {
@@ -32,7 +33,7 @@ const Dashboard = () => {
     }
   }, []);
 
-  /* ---------------- Refresh when returning from Edit ---------------- */
+  
   useEffect(() => {
     fetchMyTreks();
   }, [location.state, fetchMyTreks]);
