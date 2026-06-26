@@ -118,7 +118,20 @@ npm run dev
 
 ## Screenshots
 
-> _Add screenshots here_
+### Home Page
+![Home Page](Screenshots/home.png)
+
+### About Page
+![About Page](Screenshots/about.png)
+
+### Dashboard
+![Dashboard](Screenshots/dashboard.png)
+
+### Create Trek
+![Create Trek](Screenshots/form.png)
+
+### Trek Details
+![Trek Details](Screenshots/trekDetails.png)
 
 | Page | Description |
 |---|---|
@@ -130,7 +143,7 @@ npm run dev
 
 ---
 
-## Roadmap
+## Next Updates
 
 - [ ] Google Maps integration for route visualization
 - [ ] Online booking and payment gateway
@@ -139,7 +152,7 @@ npm run dev
 - [ ] AI-based trek recommendations
 - [ ] Weather forecast integration
 - [ ] Push notifications
-- [ ] Admin dashboard
+
 
 ---
 
