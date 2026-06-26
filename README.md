@@ -19,7 +19,7 @@ Trekking communities today rely on scattered channels — WhatsApp groups, Insta
 
 ## Live Demo
 
-[Click here for demo](https://open-trek-platform-4.onrender.com/)
+Demo :- [OpenTrek](https://open-trek-platform-4.onrender.com/)
 
 ---
 
