@@ -19,7 +19,8 @@ Trekking communities today rely on scattered channels — WhatsApp groups, Insta
 
 ## Live Demo
 
-> _Add deployment link here (e.g., Vercel / Render / Railway)_
+[> _Add deployment link here (e.g., Vercel / Render / Railway)_]
+(https://open-trek-platform-4.onrender.com/)
 
 ---
 
@@ -83,7 +84,7 @@ OpenTrek/
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/open-trek-platform.git
+git clone https://github.com/yadnyesh23/open-trek-platform.git
 cd open-trek-platform
 ```
 
